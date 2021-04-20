@@ -51,7 +51,7 @@ $items-count: 15;
   }
 
   100% {
-    transform: scaleY(2);
+    transform: scaleY(3);
   }
 }
 // Mixin to use animation
@@ -205,34 +205,43 @@ body {
   }
 }
 .drop-container {
-  background-color: teal;
+  background-color: #e1ad01;
   position: fixed;
   top: 0;
+  left: 2vw;
   margin: auto;
   display: flex;
   // align-items: center;
   justify-content: flex-start;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 85vw;
-  height: 1vh;
+  height: 2vh;
 }
 .drop {
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-color: teal;
+  //   align-items: center;
+  background-color: sandybrown;
   position: relative;
+  top: 2vw;
+  width: 3vw;
+  height: 1.5vw;
+  border-radius: 5px;
+  &::after {
+    content: "";
+    width: 2vw;
+    height: 2vw;
+    background-color: tomato;
 
-  width: 2vw;
-  height: 2vw;
-  border-radius: 0 0 15px 15px;
+    border-radius: 0 0 5px 5px;
+    top: 0vw;
+  }
 }
 @for $i from 1 through $items-count {
   .drop:nth-child(#{$i}) {
     @include drop(random(8) + s);
-
     @if (($i % 2) != 0) {
-      background-color: thistle;
+      background-color: peru;
     }
   }
 }
