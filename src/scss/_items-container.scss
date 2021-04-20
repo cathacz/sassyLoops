@@ -1,0 +1,65 @@
+// how many divs in HTML
+$items-count: 15;
+
+//animation definition
+
+@keyframes move {
+  0% {
+    transform: scaleY(1) rotate(0deg);
+  }
+
+  100% {
+    transform: scaleY(1.4) rotate(360deg);
+  }
+}
+// Mixin to use animation
+@mixin movement($duration) {
+  animation-name: move;
+  animation-duration: $duration;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: round(7);
+}
+body {
+  background-color: salmon;
+  margin: 0;
+}
+
+.items-container {
+  background-color: seagreen;
+  margin: 25vh auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-evenly;
+  width: 75vw;
+  height: 50vh;
+}
+.item {
+  background: sandybrown;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1vw;
+  height: 3vw;
+  border-radius: 5px;
+}
+.i {
+  background: sandybrown;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3vw;
+  height: 3vw;
+  border-radius: 5px;
+}
+@for $i from 1 through $items-count {
+  .item:nth-child(#{$i}) {
+    @include movement(random(5) + 1 + s);
+  }
+}
+@for $i from 1 through $items-count {
+  .i:nth-child(#{$i}) {
+    @include movement(random(5) + 1 + s);
+  }
+}
