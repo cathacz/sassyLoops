@@ -45,6 +45,23 @@ $items-count: 15;
   animation-direction: normal;
   //   animation-timing-function: linear;
 }
+@keyframes droping {
+  0% {
+    transform: scaleY(1);
+  }
+
+  100% {
+    transform: scaleY(2);
+  }
+}
+// Mixin to use animation
+@mixin drop($duration) {
+  animation-name: droping;
+  animation-duration: $duration;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}
 body {
   background-color: salmon;
   margin: 0;
@@ -183,5 +200,39 @@ body {
   .stalk:nth-child(#{$i}) {
     @include pulse(random(5) + 1 + s);
     animation-delay: random(15) + 1 + s;
+    @if (($i % 2) != 0) {
+    }
+  }
+}
+.drop-container {
+  background-color: teal;
+  position: fixed;
+  top: 0;
+  margin: auto;
+  display: flex;
+  // align-items: center;
+  justify-content: flex-start;
+  justify-content: space-evenly;
+  width: 85vw;
+  height: 1vh;
+}
+.drop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: teal;
+  position: relative;
+
+  width: 2vw;
+  height: 2vw;
+  border-radius: 0 0 15px 15px;
+}
+@for $i from 1 through $items-count {
+  .drop:nth-child(#{$i}) {
+    @include drop(random(8) + s);
+
+    @if (($i % 2) != 0) {
+      background-color: thistle;
+    }
   }
 }
