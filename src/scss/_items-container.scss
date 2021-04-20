@@ -222,19 +222,19 @@ body {
   justify-content: center;
   //   align-items: center;
   background-color: sandybrown;
-  position: relative;
+  //   position: relative;
   top: 2vw;
   width: 3vw;
   height: 1.5vw;
-  border-radius: 5px;
+  border-radius: 8px;
   &::after {
     content: "";
     width: 2vw;
     height: 2vw;
     background-color: tomato;
 
-    border-radius: 0 0 5px 5px;
-    top: 0vw;
+    border-radius: 10px;
+    top: 9vw;
   }
 }
 @for $i from 1 through $items-count {
