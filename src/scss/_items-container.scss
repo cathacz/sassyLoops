@@ -5,20 +5,45 @@ $items-count: 15;
 
 @keyframes move {
   0% {
-    transform: scaleY(1) rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
-    transform: scaleY(1.4) rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 // Mixin to use animation
-@mixin movement($duration) {
+@mixin movement($duration, $rotation) {
   animation-name: move;
   animation-duration: $duration;
   animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: round(7);
+  animation-direction: $rotation;
+  animation-timing-function: linear;
+}
+
+@keyframes pulsation {
+  0% {
+    transform: scale(0.1);
+  }
+  25% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.1);
+  }
+  75% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.1);
+  }
+}
+@mixin pulse($duration) {
+  animation-name: pulsation;
+  animation-duration: $duration;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  //   animation-timing-function: linear;
 }
 body {
   background-color: salmon;
@@ -35,31 +60,121 @@ body {
   width: 75vw;
   height: 50vh;
 }
-.item {
-  background: sandybrown;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1vw;
-  height: 3vw;
-  border-radius: 5px;
-}
+.item,
 .i {
   background: sandybrown;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3vw;
-  height: 3vw;
+  width: 0.7vw;
+  height: 4vw;
   border-radius: 5px;
+}
+.item {
+  &::before {
+    content: "";
+    background: steelblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 4vw;
+    height: 0.7vw;
+    border-radius: 5px;
+    top: 4vw;
+    animation-play-state: paused;
+  }
+  &::after {
+    content: "";
+    background: salmon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 4vw;
+    height: 0.7vw;
+    border-radius: 5px;
+    top: -4vw;
+    animation-play-state: paused;
+  }
+}
+.i {
+  &::before {
+    content: "";
+    background: steelblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 4vw;
+    height: 0.7vw;
+    border-radius: 5px;
+    top: 4vw;
+    animation-play-state: paused;
+  }
+  &::after {
+    content: "";
+    background: salmon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 4vw;
+    height: 0.7vw;
+    border-radius: 5px;
+    top: -4vw;
+    animation-play-state: paused;
+  }
 }
 @for $i from 1 through $items-count {
   .item:nth-child(#{$i}) {
-    @include movement(random(5) + 1 + s);
+    @include movement(random(10) + 1 + s, alternate);
   }
 }
 @for $i from 1 through $items-count {
   .i:nth-child(#{$i}) {
-    @include movement(random(5) + 1 + s);
+    @include movement(random(5) + 1 + s, alternate-reverse);
   }
+}
+.stalk-container {
+  position: fixed;
+  z-index: -1;
+  right: 2vw;
+  top: 2vw;
+  margin: auto;
+  display: flex;
+  // align-items: center;
+  justify-content: flex-start;
+  justify-content: space-between;
+  width: 85vw;
+  height: 20vh;
+}
+.stalk {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  width: 100px;
+  height: 90px;
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+    left: 50px;
+    top: 0;
+    width: 50px;
+    height: 80px;
+    background: seashell;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+  }
+  &::after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+  }
+  @include pulse(2s);
 }
